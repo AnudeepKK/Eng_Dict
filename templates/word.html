@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Search</title>
+
+  <!-- Font Awesome for the search icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <!-- Google Font - Open Sans -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+        background: linear-gradient(135deg, #00b4cc, #004aad);
+        font-family: 'Open Sans', sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column; /* Change to column layout */
+        align-items: center;
+        justify-content: flex-start; /* Align to the top */
+      }
+      
+      /* Center the search bar container */
+      .wrap {
+        width: 100%;
+        max-width: 600px;
+        padding: 20px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        background-color: #fff;
+        text-align: center;
+        margin-top: 20px; /* Add some margin at the top */
+      }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #004aad;
+      font-weight: 600;
+    }
+
+    .search {
+      width: 100%;
+      display: flex;
+      margin-bottom: 20px; /* Space below the search bar */
+      justify-content: center;
+    }
+
+    .searchTerm {
+      flex-grow: 1;
+      border: 2px solid #00B4CC;
+      border-right: none;
+      padding: 12px 15px;
+      border-radius: 5px 0 0 5px;
+      outline: none;
+      color: #333;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .searchTerm::placeholder {
+      color: #aaa;
+    }
+
+    .searchTerm:focus {
+      border-color: #004aad;
+      color: #004aad;
+    }
+
+    .searchButton {
+      width: 50px;
+      height: 50px;
+      border: none;
+      background: #00B4CC;
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 0 5px 5px 0;
+      transition: background 0.3s ease;
+      font-size: 20px;
+    }
+
+    .searchButton:hover {
+      background-color: #004aad;
+    }
+
+    h3 {
+      color: #004aad;
+      margin: 10px 0; /* Margin for spacing */
+      font-weight: 400;
+      text-align: left; /* Align text to the left */
+    }
+
+    .results {
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .results ul {
+      list-style-type: disc; /* Bullet points for list items */
+      padding-left: 20px; /* Indentation for list items */
+    }
+
+    @media screen and (max-width: 600px) {
+      .wrap {
+        width: 90%;
+      }
+      .searchTerm {
+        font-size: 14px;
+      }
+      .searchButton {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>Search Your Word</h2>
+    <div class="search">
+      <form action="word">
+        <input type="text" name="search" class="searchTerm" placeholder="Input Your Word Here">
+        <button type="submit" class="searchButton">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+    </div>
+
+    <div class="results">
+        <h3>Meanings:</h3>
+        <ul>
+            {% for part_of_speech, meaning_list in meanings %}
+                <li>{{ part_of_speech }}:
+                    <ul>
+                        {% for meaning in meaning_list %}
+                            <li>{{ meaning }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    
+        <h3>Synonyms: {% for synonym in synonyms %} {{ synonym }}{% if not loop.last %}, {% endif %}{% endfor %}</h3>
+        <h3>Antonyms: {% for antonym in antonyms %} {{ antonym }}{% if not loop.last %}, {% endif %}{% endfor %}</h3>
+    </div>
+    
+  </div>
+</body>
+</html>
